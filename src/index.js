@@ -1,27 +1,53 @@
 class SmartCalculator {
-  constructor(initialValue) {
-    // your implementation
-  }
+    constructor(initialValue) {
+        this.result = '' + initialValue;
+    }
 
-  add(number) {
-    // your implementation
-  }
-  
-  subtract(number) {
-    // your implementation
-  }
+    add(number) {
+        this.result += ` + ${number}`;
+        return this;
+    }
 
-  multiply(number) {
-    // your implementation
-  }
+    subtract(number) {
+        this.result += ` - ${number}`;
+        return this;
+    }
 
-  devide(number) {
-    // your implementation
-  }
+    multiply(number) {
+        this.result += ` * ${number}`;
+        return this;
+    }
 
-  pow(number) {
-    // your implementation
-  }
+    devide(number) {
+        this.result += ` / ${number}`;
+        return this;
+    }
+
+    pow(number) {
+        let temp = this.result.split(' ');
+        let base = temp.pop();
+        //let sepr = base.lastIndexOf(',');
+        //if (~sepr) {
+        //    console.log('base', base);
+        //    console.log(`${base.slice(0, sepr+1)},Math.pow(${ base[sepr + 1] },${ number })`);
+        //    temp.push(`${base.slice(0, sepr, 1)}Math.pow(${base[sepr + 1]},${number})`);
+        //} else
+        temp.push(`Math.pow(${base},${number})`);
+
+        this.result = temp.join(' ');
+        return this;
+    }
+
+    toString() {
+        return eval(this.result);
+    }
+
+}
+
+Object.prototype.toString = function () {
+    let test = this.value + this.addValue - this.subValue;
+    console.log(test);
 }
 
 module.exports = SmartCalculator;
+
