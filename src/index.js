@@ -26,13 +26,15 @@ class SmartCalculator {
     pow(number) {
         let temp = this.result.split(' ');
         let base = temp.pop();
-        //let sepr = base.lastIndexOf(',');
-        //if (~sepr) {
-        //    console.log('base', base);
-        //    console.log(`${base.slice(0, sepr+1)},Math.pow(${ base[sepr + 1] },${ number })`);
-        //    temp.push(`${base.slice(0, sepr, 1)}Math.pow(${base[sepr + 1]},${number})`);
-        //} else
-        temp.push(`Math.pow(${base},${number})`);
+        
+        if (~base.lastIndexOf('(')) {
+            let count = base.split('Math').length - 1;
+            let coma = base.lastIndexOf(',');
+
+            temp.push(`${base.slice(0, coma + 1)}Math.pow(${base[coma + 1]},${number})${')'.repeat(count)}`);
+        } else {
+            temp.push(`Math.pow(${base},${number})`);
+        }
 
         this.result = temp.join(' ');
         return this;
@@ -42,11 +44,6 @@ class SmartCalculator {
         return eval(this.result);
     }
 
-}
-
-Object.prototype.toString = function () {
-    let test = this.value + this.addValue - this.subValue;
-    console.log(test);
 }
 
 module.exports = SmartCalculator;
